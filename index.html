@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.141.0/build/three.module.js",
+          "three/examples/jsm/loaders/FontLoader": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/loaders/FontLoader.js",
+          "three/examples/jsm/geometries/TextGeometry": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/geometries/TextGeometry.js",
+          "three/examples/jsm/controls/OrbitControls": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/controls/OrbitControls.js",
+          "three/examples/jsm/controls/TrackballControls": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/controls/TrackballControls.js",
+          "three/examples/jsm/renderers/CSS3DRenderer": "https://cdn.jsdelivr.net/npm/three@0.141.0/examples/jsm/renderers/CSS3DRenderer.js"
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      alert("Цей сайт розрахований для комп'ютера!");
+    </script>
+    <div class="default-container">
+      <header class="header">
+        <img src="img/CAMP.png" width="160px" alt="CAMP logo" class="logo" />
+        <nav class="navigation">
+          <li class="list"><a href="" class="a">Hello</a></li>
+          <li class="list"><a href="" class="a">About</a></li>
+          <li class="list"><a href="" class="a">News</a></li>
+        </nav>
+        <button type="button" class="btn">Sign up</button>
+      </header>
+      <main class="main">
+        <section class="left-side">
+          <h1 id="title-special"></h1>
+          <h2 id="subtitle-special"></h2>
+          <form class="form" action="">
+            <input type="text" class="input" placeholder="Email address"/>
+            <button type="button" class="btn-sign-up">Sign up</button>
+          </form>
+        </section>
+        <section class="right-side">
+          <div id="container">
+            <div class="fire"></div>
+          </div>
+        </section>
+      </main>
+      <footer class="footer">
+        <section class="camp">
+          <div class="camp-wrapp">
+            <div class="card">
+              <div class="card_content">
+                <div class="card_gloss"></div>
+                <h2 class="card_title">23</h2>
+                <p class="card_description">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card_content">
+                <div class="card_gloss"></div>
+                <h2 class="card_title">8</h2>
+                <p class="card_description">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card_content">
+                <div class="card_gloss"></div>
+                <h2 class="card_title">11</h2>
+                <p class="card_description">
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </footer>
+    </div>
+    <div id="blocker"></div>
+    <script type="module">
+      import * as THREE from "three";
+      import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
+      import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+      import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+      const visualTitle = document.querySelector("#title-special");
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(
+        40,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+      });
+      const controls = new OrbitControls(camera, renderer.domElement);
+      const visualPosition = new THREE.Vector3(0, 0, 100);
+      const fontLoader = new FontLoader().load(
+        "https://assets.codepen.io/2017324/helvetiker_bold.typeface.json",
+        (font) => {
+          const textGeometry = new TextGeometry("Summer", {
+            font,
+            size: 20,
+            height: 6,
+            curveSegments: 30,
+            bevelThickness: 1,
+            bevelSize: 0.5,
+            bevelSegments: 20,
+          });
+          textGeometry.center();
+          const text = new THREE.Mesh(
+            textGeometry,
+            new THREE.MeshPhongMaterial({
+              color: "#333333",
+              emissive: "#333333",
+              specular: "#333333",
+              shininess: 0,
+            })
+          );
+          scene.add(text);
+        }
+      );
+      camera.position.copy(visualPosition);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setClearColor(0x000000, 0);
+      visualTitle.appendChild(renderer.domElement);
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth / 3, window.innerHeight / 3);
+      controls.enableDamping = true;
+      controls.enableZoom = false;
+      controls.minPolarAngle = Math.PI / 2;
+      controls.maxPolarAngle = Math.PI / 2;
+      window.addEventListener("resize", () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+      });
+
+      function addLight(x, y, z) {
+        const spotLight = new THREE.SpotLight(0xffffff);
+        spotLight.position.set(x, y, z);
+        scene.add(spotLight);
+      }
+
+      function animate() {
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+        controls.update();
+      }
+      addLight(100, 1000, 100);
+      animate();
+    </script>
+        <script type="module">
+          import * as THREE from "three";
+          import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
+          import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+          import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+          const visualTitle = document.querySelector("#subtitle-special");
+          const scene = new THREE.Scene();
+          const camera = new THREE.PerspectiveCamera(
+            50,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+          );
+          const renderer = new THREE.WebGLRenderer({
+            alpha: true,
+            antialias: true,
+          });
+          const controls = new OrbitControls(camera, renderer.domElement);
+          const visualPosition = new THREE.Vector3(0, 0, 100);
+          const fontLoader = new FontLoader().load(
+            "https://assets.codepen.io/2017324/helvetiker_bold.typeface.json",
+            (font) => {
+              const textGeometry = new TextGeometry("CAMP’21", {
+                font,
+                size: 20,
+                height: 6,
+                curveSegments: 30,
+                bevelThickness: 1,
+                bevelSize: 0.5,
+                bevelSegments: 20,
+              });
+              textGeometry.center();
+              const text = new THREE.Mesh(
+                textGeometry,
+                new THREE.MeshPhongMaterial({
+                  color: "#333333",
+                  emissive: "black",
+                  specular: "#333333",
+                  shininess: 0,
+                })
+              );
+              scene.add(text);
+            }
+          );
+          camera.position.copy(visualPosition);
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+          renderer.setClearColor(0x000000, 0);
+          visualTitle.appendChild(renderer.domElement);
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth / 3, window.innerHeight / 3);
+          controls.enableDamping = true;
+          controls.enableZoom = false;
+          controls.minPolarAngle = Math.PI / 2;
+          controls.maxPolarAngle = Math.PI / 2;
+          window.addEventListener("resize", () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+          });
+    
+          function addLight(x, y, z) {
+            const spotLight = new THREE.SpotLight(0xffffff);
+            spotLight.position.set(x, y, z);
+            scene.add(spotLight);
+          }
+    
+          function animate() {
+            renderer.render(scene, camera);
+            requestAnimationFrame(animate);
+            controls.update();
+          }
+          addLight(100, 1000, 100);
+          animate();
+        </script>
+    <script type="module">
+      import * as THREE from "three";
+      import { FontLoader } from "three/examples/jsm/loaders/FontLoader";
+      import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry";
+      import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+      import { TrackballControls } from "three/examples/jsm/controls/TrackballControls";
+      import { CSS3DRenderer, CSS3DObject } from "three/examples/jsm/renderers/CSS3DRenderer";
+
+      const elementFire = document.querySelector(".fire");
+      const fireScene = new THREE.Scene();
+      const fireCamera = new THREE.PerspectiveCamera(
+        80,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        1000
+      );
+      const fireRenderer = new THREE.WebGLRenderer();
+      fireScene.add(fireCamera);
+      //   fireRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      fireRenderer.setClearColor(0x000000, 0);
+      fireRenderer.setSize(window.innerWidth, window.innerHeight);
+
+      fireCamera.position.x = -2;
+      fireCamera.position.y = 0;
+      fireCamera.position.z = 3;
+      elementFire.appendChild(fireRenderer.domElement);
+      let plane;
+      const fireTexture = new THREE.TextureLoader();
+      fireTexture.load("./img/tree.jpg", (texture) => {
+        const material = new THREE.MeshBasicMaterial({
+          map: texture,
+          transparent: true,
+        });
+        const geometry = new THREE.PlaneGeometry(4, 4);
+        plane = new THREE.Mesh(geometry, material);
+        fireScene.add(plane);
+        animateFire();
+      });
+      const clock = new THREE.Clock();
+      function animateFire() {
+        requestAnimationFrame(animateFire);
+
+        const elapsed = clock.getElapsedTime();
+        plane.rotation.y = Math.sin(elapsed * 0.5) * 0.2;
+        plane.position.y = Math.sin(elapsed * 2) * 0.1;
+        fireRenderer.render(fireScene, fireCamera);
+      }
+
+      // вогонь закінчився
+
+      // const containerThree = document.getElementById("container");
+
+      // const sceneCameraMotor = new THREE.Scene();
+      // const cameraThree = new THREE.PerspectiveCamera(
+      //   45,
+      //   window.innerWidth / window.innerHeight,
+      //   0.1,
+      //   4999
+      // );
+      // cameraThree.position.set(500, 350, 750);
+      // const RenderThree = new THREE.WebGLRenderer();
+      // RenderThree.setClearColor(0x000000, 0);
+      // RenderThree.setSize(window.innerWidth, window.innerHeight);
+      // containerThree.appendChild(RenderThree.domElement);
+      // let group = new THREE.Group();
+      // group.add(new Element("https://www.google.com/imgres?q=img%20home&imgurl=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F186077%2Fpexels-photo-186077.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D1%26w%3D500&imgrefurl=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fhouse%2F&docid=w_edFuvJNI2ApM&tbnid=MHSAM57wXp9xKM&vet=12ahUKEwj_xofv_I-HAxWmgP0HHW7kCS4QM3oECBcQAA..i&w=500&h=341&hcb=2&ved=2ahUKEwj_xofv_I-HAxWmgP0HHW7kCS4QM3oECBcQAA", 0, 0, 240, 0));
+      // group.add(new Element("https://www.google.com/imgres?q=img%20home&imgurl=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F186077%2Fpexels-photo-186077.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D1%26w%3D500&imgrefurl=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fhouse%2F&docid=w_edFuvJNI2ApM&tbnid=MHSAM57wXp9xKM&vet=12ahUKEwj_xofv_I-HAxWmgP0HHW7kCS4QM3oECBcQAA..i&w=500&h=341&hcb=2&ved=2ahUKEwj_xofv_I-HAxWmgP0HHW7kCS4QM3oECBcQAA", 240, 0, 0, Math.PI / 2));
+      // group.add(new Element("https://www.google.com/imgres?q=img%20home&imgurl=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F186077%2Fpexels-photo-186077.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D1%26w%3D500&imgrefurl=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fhouse%2F&docid=w_edFuvJNI2ApM&tbnid=MHSAM57wXp9xKM&vet=12ahUKEwj_xofv_I-HAxWmgP0HHW7kCS4QM3oECBcQAA..i&w=500&h=341&hcb=2&ved=2ahUKEwj_xofv_I-HAxWmgP0HHW7kCS4QM3oECBcQAA", 0, 0, -240, Math.PI));
+      // group.add(new Element("https://www.google.com/imgres?q=img%20home&imgurl=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F186077%2Fpexels-photo-186077.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26dpr%3D1%26w%3D500&imgrefurl=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fhouse%2F&docid=w_edFuvJNI2ApM&tbnid=MHSAM57wXp9xKM&vet=12ahUKEwj_xofv_I-HAxWmgP0HHW7kCS4QM3oECBcQAA..i&w=500&h=341&hcb=2&ved=2ahUKEwj_xofv_I-HAxWmgP0HHW7kCS4QM3oECBcQAA", -240, 0, 0, -Math.PI / 2));
+      // sceneCameraMotor.add(group);
+      // let controlsThree = new TrackballControls(cameraThree, RenderThree.domElement);
+      // controlsThree.rotateSpeed = 4;
+      // const blockerThree = document.getElementById("blocker");
+      // blockerThree.style.display = "none";
+      // controlsThree.addEventListener("start", () => {
+      //   blockerThree.style.display = "";
+      // });
+      // controlsThree.addEventListener("end", () => {
+      //   blockerThree.style.display = "none";
+      // });
+      // function Element(imagePath, x, y, z, ry) {
+      //   const div = document.createElement("div");
+      //   div.style.width = "450px";
+      //   div.style.height = "350px";
+      //   div.style.backgroundColor = "#000";
+      //   const img = document.createElement("img");
+      //   img.src = imagePath;
+      //   img.style.width = "480px";
+      //   img.style.height = "360px";
+      //   div.appendChild(img);
+      //   const object = new CSS3DObject(div);
+      //   object.position.set(x, y, z);
+      //   object.rotation.y = ry;
+      //   return object;
+      // }
+
+      // function animateElement() {
+      //   requestAnimationFrame(animateElement);
+      //   controlsThree.update();
+      //   group.rotation.y += 0.01;
+      //   RenderThree.render(sceneCameraMotor, cameraThree);
+      // }
+
+      // animateElement();
+    </script>
+    <script src="main.js"></script> 
+  </body>
+</html>

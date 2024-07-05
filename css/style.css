@@ -1,0 +1,187 @@
+* {
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+body{
+    background-image: url("../img/back.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left;
+}
+
+.default-container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header{
+    height: 69px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navigation{display: flex; width: 309px; justify-content: space-between;}
+.list{list-style-type: none; transition: 1s all;}
+.a{text-decoration: none; color: #333333;} 
+.list:hover{
+    transition: 1s all;
+    transform: scale(1.2);
+}
+.btn{
+    padding: 5px; 
+    background-color: #333333; 
+    color: white;
+    border: none;
+    border-radius: 30px;
+    width: 110px;
+    transition: 1s all;
+    cursor: pointer;
+}
+
+.btn:hover{
+    transition: 1s all;
+    transform: scale(0.9);
+}
+
+.main{
+    display: grid;
+    height: 825px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: ". right right"
+                         "left right right"
+                         ". right right";
+}
+
+.left-side{
+    grid-area: left;
+    display: flex;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    flex-direction: column;
+}
+
+.form{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    border-radius: 5px;
+    clip-path: polygon(4% 0, 100% 7%, 100% 75%, 48% 75%, 5% 75%, 0 2%);
+}
+
+.right-side{grid-area: right;}
+.input,.btn-sign-up{border: none; height: 20px; margin-top: 20px; width: 40%;}
+.input{
+    margin-right: 10px;
+}
+.btn-sign-up{
+    margin-top: 12px;
+    width: 108px;
+    height: 40px;
+    border-radius: 10px 10px 20px 20px;
+    color: white;
+    padding: 0 auto 20px 0 auto 20px;
+    background: rgb(244,135,67);
+    background: linear-gradient(90deg, rgba(244,135,67,1) 0%, rgba(243,94,65,1) 100%);
+    transition: 1s all;
+    cursor: pointer;
+}
+.btn-sign-up:hover{
+    transition: 1s all;
+    margin-top: 12px;
+    color: black;
+    background-color: white;
+}
+#title-special,#subtitle-special{max-height: 100px; margin: 0px!important;}
+
+canvas{
+    max-height: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.camp{display: flex; align-items: center; justify-content: space-evenly;}
+
+.my-button {
+    width: 20%;
+    height: 100px;
+}
+
+.card {
+    cursor: pointer;
+    width: 32%;
+}
+
+.card_image {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    object-fit: cover;
+}
+
+.card_content {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 350px;
+    will-change: transform;
+    transition: transform 0.25s ease-out;
+}
+
+.card_title {
+    color: #E95F45;
+    font-size: 80px;
+    padding: none;
+    margin: 1px;
+}
+
+.card_description {
+    margin: 0;
+    padding: 0 14px 10px;
+    font-size: 14px;
+    color: hsl(201, 14%, 40%);
+    text-align: left;
+}
+
+.card_gloss {
+    opacity: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(255, 255, 255, 0) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    position: absolute;
+    will-change: opacity;
+}
+
+.card_gloss.card_gloss--animatable {
+    transition: 0.25s opacity ease-out;
+}
+
+.camp-title {
+    font-family: "Poppins";
+    font-style: normal;
+    font-weight: 300;
+    font-size: 70px;
+    line-height: 110px;
+    text-align: start;
+    text-transform: uppercase;
+    color: #333333;
+}
+
+.camp-wrapp {
+    display: flex;
+    justify-content: space-between;
+}
